@@ -51,6 +51,7 @@ INSERT INTO users (email, name, password) VALUES
 ('jeanmarc@free.fr', 'Jean Marc', 'oputrjuike4'),
 ('marietutu@gmail.com', 'Marie Tutu', 'jupfrporte7'),
 ('remifrancois@gmail.com', 'Remi François', 'kopkopmo2');
+('francoisremi@gmail.com', 'François Remi', 'kopkopmo4');
 
 Nouvelle table avec les mêmes commandes que précédement 
 ### Mission 5 : Requêtes de sélection
@@ -116,7 +117,12 @@ INSERT INTO orders (users_id, date, status) VALUES
 
 
 ### Mission 9 : Jointures
-
+ CREATE TABLE orders_products (
+      orders_id INT,
+      products_id INT,
+      FOREIGN KEY (orders_id) REFERENCES ORDERS(orders_id) ON DELETE CASCADE ON UPDATE CASCADE,
+      FOREIGN KEY (products_id) REFERENCES PRODUCTS(products_id) ON DELETE CASCADE ON UPDATE CASCADE
+  );
 - Affichez toutes les commandes avec les informations des utilisateurs.
 
 SELECT o.orders_id, o.date, o.status, u.email, u.name
@@ -126,3 +132,12 @@ JOIN users u ON o.users_id = u.users_id;
 - Montrez les détails de tous les produits commandés par chaque utilisateur.
 
 ### Mission 10 : Suppression de données
+
+
+MAJ du 21 juin : j'avais un souci avec les décimales de mes prix produit. j'ai modifié le champ price avec cette requête : 
+
+ALTER TABLE products MODIFY price DECIMAL(10, 2);
+
+Ensuite pour vérifier que ça fontionnait, j'ai rajouté un produit : 
+
+INSERT INTO products (name, price, category, in_stock) VALUES ('Skate 4', 69.99, 'Sport', false);
